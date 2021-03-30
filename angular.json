@@ -1,11 +1,18 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "87aa19a8-e80c-4def-a45a-c1ceb44cd01a"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CouponFront": {
+    "couponsSystemApp": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/CouponFront",
+            "outputPath": "dist/couponsSystemApp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -46,13 +53,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             }
@@ -61,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "CouponFront:build"
+            "browserTarget": "couponsSystemApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CouponFront:build:production"
+              "browserTarget": "couponsSystemApp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CouponFront:build"
+            "browserTarget": "couponsSystemApp:build"
           }
         },
         "test": {
@@ -109,16 +116,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "CouponFront:serve"
+            "devServerTarget": "couponsSystemApp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "CouponFront:serve:production"
+              "devServerTarget": "couponsSystemApp:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "CouponFront"
+  "defaultProject": "couponsSystemApp"
 }
