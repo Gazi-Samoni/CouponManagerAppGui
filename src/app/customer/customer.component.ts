@@ -157,12 +157,12 @@ export class CustomerComponent implements OnInit {
     customerContainer?.appendChild(button);
     button.click();
   }
-  public onPurchaseCoupon(couponId: number| undefined): void{
-    console.log(couponId);
-    const isPurchasedBefore = this.customerCoupons.find(value => value.id === couponId);
+  public onPurchaseCoupon(coupon: Coupon| null): void{
+    console.log(coupon);
+    const isPurchasedBefore = this.customerCoupons.find(value => value.id === coupon?.id);
     if (!isPurchasedBefore ) {
-      if (couponId !== undefined) {
-        this.customerService.purchaseCoupon(couponId).subscribe(
+      if (coupon !== null) {
+        this.customerService.purchaseCoupon(coupon).subscribe(
           (response: void) => {
             this.getAllCoupons();
             this.getCustomerCoupons();
@@ -196,24 +196,26 @@ export class CustomerComponent implements OnInit {
 
   public applyMaxPriceFilter(): void{
     if (this.currentRangePrice !== undefined) {
-      console.log(this.currentRangePrice + 'currentMaxPrice');
-      this.customerService.getAllCouponsByMaxPrice(this.currentRangePrice).subscribe(
-        (response: Coupon[]) => {
-          this.companyCoupons = response;
-          console.log(response);
-        },
-        (error: HttpErrorResponse) => {
-          this.app.handleError(error);
-        }
-      );
-      this.customerService.getCustomerCouponsByMaxPrice(this.currentRangePrice).subscribe(
-        (response: Coupon[]) => {
-          this.customerCoupons = response;
-          console.log(response);
-        },
-        (error: HttpErrorResponse) => {
-          this.app.handleError(error);
-        });
+      if (this.ePageIndex === eCustomerIndexPage.showCompaniesCoupons) {
+        console.log(this.currentRangePrice + 'currentMaxPrice');
+        this.customerService.getAllCouponsByMaxPrice(this.currentRangePrice).subscribe(
+          (response: Coupon[]) => {
+            this.companyCoupons = response;
+            console.log(response);
+          },
+          (error: HttpErrorResponse) => {
+          }
+        );
+      }else{
+        this.customerService.getCustomerCouponsByMaxPrice(this.currentRangePrice).subscribe(
+          (response: Coupon[]) => {
+            this.customerCoupons = response;
+            console.log(response);
+          },
+          (error: HttpErrorResponse) => {
+            this.app.handleError(error);
+          });
+      }
     }
   }
 

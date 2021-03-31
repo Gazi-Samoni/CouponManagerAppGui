@@ -120,7 +120,7 @@
           <p>Are you sure you want to purchase coupon {{purchaseCoupon?.title}}?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button (click)="onPurchaseCoupon(purchaseCoupon?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            <button (click)="onPurchaseCoupon(purchaseCoupon)" class="btn btn-danger" data-dismiss="modal">Yes</button>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@
           </ul>
           <div class="card-body">
             <div class="float-right btn-group btn-group-sm">
-              <button (click)="onPurchaseCoupon(coupon.id)" type="button" class="btn btn-primary">Buy</button>
+              <button (click)="onPurchaseCoupon(coupon)" type="button" class="btn btn-primary">Buy</button>
               <!--                <a  class="btn btn-primary" data-placement="top" data-original-title="Buy">Buy</a>-->
             </div>
           </div>

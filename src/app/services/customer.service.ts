@@ -18,8 +18,8 @@ export class CustomerService implements ClientService{
     return this.http.get<boolean>(`${this.customerAPIURL}/login/${email}/${password}`, { observe: 'response' });
   }
 
-  public purchaseCoupon(couponId: number): Observable<void> {
-    return this.http.post<void>(`${this.customerAPIURL}/add/`, couponId);
+  public purchaseCoupon(coupon: Coupon): Observable<void> {
+    return this.http.post<void>(`${this.customerAPIURL}/purchaseCoupon`, coupon);
   }
 
   public getCustomerCoupons(): Observable<Array<Coupon>> {
@@ -39,7 +39,7 @@ export class CustomerService implements ClientService{
   }
 
   public getAllCoupons(): Observable<Array<Coupon>> {
-    return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/AllCompanies`);
+    return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/coupon/getAll`);
   }
 
   public getAllCouponsByCategory(category: string): Observable<Array<Coupon>> {
@@ -47,6 +47,6 @@ export class CustomerService implements ClientService{
   }
 
   public getAllCouponsByMaxPrice(maxPrice: number): Observable<Array<Coupon>> {
-    return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/AllCoupons/price/${maxPrice}`);
+    return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/coupon/getAll/price/${maxPrice}`);
   }
 }
