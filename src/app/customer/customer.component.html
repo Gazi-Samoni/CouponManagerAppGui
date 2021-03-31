@@ -1,0 +1,172 @@
+<div class="container">
+
+  <div class="row">
+    <h1>{{customerDetails?.firstName}} {{customerDetails?.lastName}}</h1>
+  </div>
+
+  <div class="btn-group btn-group-toggle mt-6" data-toggle="buttons">
+    <label (click)="onSwitchData('Companies')" class="btn btn-secondary active">
+      <input  type="radio" name="options" id="option1" autocomplete="off"> Companies coupons
+    </label>
+    <label (click)="onSwitchData('My')" class="btn btn-secondary">
+      <input  type="radio" name="options" id="option2" autocomplete="off"> My coupons
+    </label>
+  </div>
+
+  <!-- Blue Buttons row -->
+  <div class="mt-auto p-2 row">
+
+    <!--  Category button   -->
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="applyCategoryFilter()" type="submit">Filter by Category</button>
+    </div>
+    <!--  MaxPrice button   -->
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="applyMaxPriceFilter()" type="submit">Filter by max price</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="reset()" type="submit">Reset</button>
+    </div>
+  </div>
+
+  <!-- Secound row of items under buttons -->
+  <div class="row">
+
+    <!--    <div class="form-group float-left col-sm-3">-->
+    <!--      &lt;!&ndash;blank&ndash;&gt;-->
+    <!--    </div>-->
+
+    <!--Category radio    -->
+    <div class="form-group float-left col-sm-3">
+      <div class="col-sm-3">
+        <div class="form-check" >
+          <input  #radios1 (click)="categoryChanged('Food')"  ngModel class="form-check-input" type="radio" name="categoryID" id="radios1" value='Food'>
+          <label class="form-check-label" text="Food">
+            Food
+          </label>
+        </div>
+        <div class="form-check">
+          <input #radios2  (click)="categoryChanged('Electricity')" ngModel class="form-check-input" type="radio" name="categoryID" id="radios2" value='Electricity'>
+          <label class="form-check-label" text="Electricity">
+            Electricity
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input #radios3 (click)="categoryChanged('Restaurant')"  ngModel class="form-check-input" type="radio" name="categoryID" id="radios3" value='Restaurant'>
+          <label class="form-check-label" text="Restaurant">
+            Restaurant
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input #radios4  (click)="categoryChanged('Vacation')" ngModel class="form-check-input" type="radio" name="categoryID" id="radios4" value='Vacation'>
+          <label class="form-check-label" text="Vacation">
+            Vacation
+          </label>
+        </div>
+      </div>
+    </div>
+    <!--MaxPrice range    -->
+    <div class="form-group float-left col-sm-3">
+      <div class="col-sm">
+        <input type="range" id="maxPriceInput" (input)="maxPriceChanged()"  value="{{currentRangePrice}}" max="{{maxPrice}}" step="1">
+        <label> Max Price: {{currentRangePrice}}</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="isThisPageOnScreen('showMyCoupons')" class="container" id="coupon-container">
+  <div class="row">
+    <div *ngFor="let coupon of customerCoupons" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <!--          <div class="col-6">-->
+          <!--            <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>-->
+          <!--          </div>-->
+          <div class="col-6 card-title align-self-center mb-0">
+            <h5>{{coupon?.title}}</h5>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Description: {{coupon?.description}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Start Date: {{coupon?.startDate}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>End Date: {{coupon?.endDate}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Price: {{coupon?.price}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Category: {{coupon?.category}}</li>
+        </ul>
+        <!--        <div class="card-body">-->
+        <!--          <div class="float-right btn-group btn-group-sm">-->
+        <!--            <a (click)="onOpenModalCoupon(coupon, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>-->
+        <!--            <a (click)="onOpenModalCoupon(coupon, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <!-- Purchase Modal -->
+  <div class="modal fade" id="purchaseCouponModal" tabindex="-1" role="dialog" aria-labelledby="purchaseModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="purchaseCouponModelLabel">Purchase Coupon</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to purchase coupon {{purchaseCoupon?.title}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="onPurchaseCoupon(purchaseCoupon?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification for no coupons -->
+<div *ngIf="customerCoupons?.length == 0 && isThisPageOnScreen('showMyCoupons')" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">You didn't purchase any coupon yet!</h4>
+    <p>No coupons were found.</p>
+  </div>
+</div>
+
+
+<div *ngIf="isThisPageOnScreen('showCompaniesCoupons')" class="container" id="coupon-container1">
+  <div class="container" id="coupon2-container">
+    <div class="row">
+      <div *ngFor="let coupon of companyCoupons" class="col-md-6 col-xl-3">
+        <div class="card m-b-30">
+          <div class="card-body row">
+            <!--          <div class="col-6">-->
+            <!--            <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>-->
+            <!--          </div>-->
+            <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{coupon?.title}}</h5>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Description: {{coupon?.description}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Start Date: {{coupon?.startDate}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>End Date: {{coupon?.endDate}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Amount: {{coupon?.amount}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Price: {{coupon?.price}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Category: {{coupon?.category}}</li>
+          </ul>
+          <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+              <button (click)="onPurchaseCoupon(coupon.id)" type="button" class="btn btn-primary">Buy</button>
+              <!--                <a  class="btn btn-primary" data-placement="top" data-original-title="Buy">Buy</a>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>\
+

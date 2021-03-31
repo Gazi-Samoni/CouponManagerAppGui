@@ -1,0 +1,288 @@
+<div class="container">
+  <div class="row">
+    <h1>{{companyDetails?.name}}</h1>
+  </div>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="onOpenModalCoupon(null, 'add')" type="submit">Add Coupon</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="applyCategoryFilter()" type="submit">Filter by Category</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="applyMaxPriceFilter()" type="submit">Filter by max price</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary float-left" (click)="reset()" type="submit">Reset</button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="form-group float-left col-sm-3">
+      <!--blank-->
+    </div>
+
+    <div class="form-group float-left col-sm-3">
+      <div class="col-sm-3">
+        <div class="form-check disabled">
+          <input  #radios1 (click)="categoryChanged('Food')"  ngModel class="form-check-input" type="radio" name="category" id="radios1" value='Food'>
+          <label class="form-check-label" for="exampleRadios1">
+            Food
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input #radios2  (click)="categoryChanged('Electricity')" ngModel class="form-check-input" type="radio" name="category" id="radios2" value='Electricity'>
+          <label class="form-check-label" for="exampleRadios2">
+            Electricity
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input #radios3 (click)="categoryChanged('Restaurant')"  ngModel class="form-check-input" type="radio" name="category" id="radios3" value='Restaurant'>
+          <label class="form-check-label" for="exampleRadios3">
+            Restaurant
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input #radios4  (click)="categoryChanged('Vacation')" ngModel class="form-check-input" type="radio" name="category" id="radios4" value='Vacation'>
+          <label class="form-check-label" for="exampleRadios3">
+            Vacation
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group float-left col-sm-3">
+      <div class="col-sm">
+        <input type="range" id="maxPriceInput" (input)="maxPriceChanged()"  value="{{currentRangePrice}}" max="{{maxPrice}}" step="1">
+        <label> Max Price: {{currentRangePrice}}</label>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+<div class="container align-bottom" id="coupon-container">
+  <div class="row">
+    <div *ngFor="let coupon of companyCoupons" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+        <div class="card-body row">
+                    <div class="col-6">
+                      <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                    </div>
+          <div class="col-6 card-title align-self-center mb-0">
+            <h5>{{coupon?.title}}</h5>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Description: </strong>{{coupon?.description}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Start Date: </strong>{{coupon?.startDate}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>End Date: </strong>{{coupon?.endDate}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Amount: </strong>{{coupon?.amount}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Price: </strong>{{coupon?.price}}</li>
+          <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Category: </strong>{{coupon?.category}}</li>
+        </ul>
+        <div class="card-body">
+          <div class="float-right btn-group btn-group-sm">
+            <a (click)="onOpenModalCoupon(coupon, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+            <a (click)="onOpenModalCoupon(coupon, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Coupon Modal -->
+  <div class="modal fade" id="addCouponModal" tabindex="-1" role="dialog" aria-labelledby="addCouponModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddCoupon(addForm)">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" ngModel name="title" class="form-control" id="title" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Description" required>
+            </div>
+
+            <div class="form-group">
+              <label for="startDate">Start Date:  </label>
+              <input type="date" ngModel id="startDate" class="form-control" name="startDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="endDate">End Date:  </label>
+              <input type="date" ngModel id="endDate" class="form-control" name="endDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input type="number" min="1" step="1" ngModel name="amount" class="form-control" id="amount" placeholder="Amount" required>
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input type="number"  min="0" step="0.1" ngModel name="price" class="form-control" id="price" placeholder="Price" required>
+            </div>
+
+            <div class="form-group" >
+              <div class="form-check" >
+                <input  ngModel class="form-check-input" type="radio" name="category" id="exampleRadios1" value=0 required>
+                <label class="form-check-label" for="exampleRadios1">
+                  Food
+                </label>
+              </div>
+              <div class="form-check">
+                <input ngModel class="form-check-input" type="radio" name="category" id="exampleRadios2" value=1 required>
+                <label class="form-check-label" for="exampleRadios2">
+                  Electricity
+                </label>
+              </div>
+              <div class="form-check disabled">
+                <input ngModel class="form-check-input" type="radio" name="category" id="exampleRadios3" value=2 required>
+                <label class="form-check-label" for="exampleRadios3">
+                  Restaurant
+                </label>
+              </div>
+              <div class="form-check disabled">
+                <input ngModel class="form-check-input" type="radio" name="category" id="exampleRadios4" value=3 required>
+                <label class="form-check-label" for="exampleRadios3">
+                  Vacation
+                </label>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="add-coupon-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="updateCouponModal" tabindex="-1" role="dialog" aria-labelledby="CouponEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateCouponModalLabel">Edit Company {{editCoupon?.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form #editForm="ngForm">
+
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input  readonly type="text" ngModel="{{editCoupon?.title}}" name="title" class="form-control" id="titleUpdate" aria-describedby="emailHelp" placeholder="Title">
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input  type="text" ngModel="{{editCoupon?.description}}" name="description" class="form-control" id="descriptionUpdate" aria-describedby="emailHelp" placeholder="Description">
+            </div>
+
+            <div class="form-group">
+              <label for="startDate">Start Date:  </label>
+              <input type="date" ngModel="{{editCoupon?.startDate}}" id="startDateUpdate" class="form-control" name="startDate" aria-describedby="emailHelp" required>
+            </div>
+
+            <div class="form-group">
+              <label for="endDate">End Date:  </label>
+              <input type="date" ngModel="{{editCoupon?.endDate}}" id="endDateUpdate" class="form-control" name="endDate" aria-describedby="emailHelp" required>
+            </div>
+
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input  type="text" min="1" step="1" ngModel="{{editCoupon?.amount}}" name="amount" class="form-control" id="amountUpdate" aria-describedby="emailHelp" placeholder="Description">
+            </div>
+
+            <input type="hidden" ngModel="{{editCoupon?.id}}" name="id" class="form-control" id="id" placeholder="Email">
+
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input  type="number" min="0" step="0.1" ngModel="{{editCoupon?.price}}" name="price" class="form-control" id="priceUpdate" aria-describedby="emailHelp" placeholder="Price">
+            </div>
+            <!--     Radio       -->
+            <div class="form-group" >
+              <div class="form-check" >
+                <input ngModel class="form-check-input" type="radio" name="category" checked="checked" id="categoryIDUpdate1" value=0 required>
+                <label class="form-check-label" for="exampleRadios1">
+                  Food
+                </label>
+              </div>
+              <div class="form-check">
+                <input ngModel class="form-check-input" type="radio" name="category" id="categoryIDUpdate2" value=1 required>
+                <label class="form-check-label" for="exampleRadios2">
+                  Electricity
+                </label>
+              </div>
+              <div class="form-check disabled">
+                <input ngModel class="form-check-input" type="radio" name="category" id="categoryIDUpdate3" value=2 required>
+                <label class="form-check-label" for="exampleRadios3">
+                  Restaurant
+                </label>
+              </div>
+              <div class="form-check disabled">
+                <input ngModel class="form-check-input" type="radio" name="category" id="categoryIDUpdate4" value=3 required>
+                <label class="form-check-label" for="exampleRadios3">
+                  Vacation
+                </label>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button (click)="onUpdateCoupon(editForm.value)" [disabled]="editForm.invalid"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteCouponModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteCouponModelLabel">Delete Coupon</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete coupon {{deleteCoupon?.title}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="onDeleteCoupon(deleteCoupon?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification for no coupons -->
+<div *ngIf="companyCoupons?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO coupons!</h4>
+    <p>No coupons were found.</p>
+  </div>
+</div>
