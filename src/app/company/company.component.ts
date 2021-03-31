@@ -26,14 +26,9 @@ export class CompanyComponent implements OnInit {
   public editCoupon: Coupon | null;
   public deleteCoupon: Coupon | null;
   public companyDetails: Company | null;
-  @ViewChild('radios1') radios1: ElementRef | undefined;
-  @ViewChild('radios2') radios2: ElementRef | undefined;
-  @ViewChild('radios3') radios3: ElementRef | undefined;
-  @ViewChild('radios4') radios4: ElementRef | undefined;
-  public maxPrice = 0;
-  public currentRangePrice = 0;
-  public maxPriceInput: HTMLInputElement | null | undefined;
   public currentCategory = '';
+
+  public  maxPriceFilter: number| undefined;
   constructor(private companyService: CompanyService, private app: AppComponent) {
     this.companyCoupons = [];
     this.editCoupon = null;
@@ -44,18 +39,7 @@ export class CompanyComponent implements OnInit {
   ngOnInit(): void {
     this.getCompanyDetails();
     this.getCompanyCoupons();
-    this.maxPriceInput = document.getElementById('maxPriceInput') as HTMLInputElement;
     this.reset();
-  }
-  private getRangeValue(): void {
-    if (this.companyCoupons !== null && this.companyCoupons.length > 0) {
-      const mostExpensiveCoupon = this.companyCoupons.reduce(
-        (accumulator, currentValue) => {
-          return (accumulator.price > currentValue.price ? accumulator : currentValue);
-        });
-      this.maxPrice = mostExpensiveCoupon.price + 1;
-      this.currentRangePrice = this.maxPrice / 2;
-    }
   }
 
   private getCompanyDetails(): void {
@@ -72,9 +56,6 @@ export class CompanyComponent implements OnInit {
     this.companyService.getCompanyCoupons().subscribe(
       (response: Coupon[]) => {
         this.companyCoupons = response;
-        console.log('cateeee' + response[0].category);
-        this.getRangeValue();
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         this.app.handleError(error);
@@ -177,28 +158,7 @@ export class CompanyComponent implements OnInit {
     }
   }
   public reset(): void{
-    if (this.radios1 !== undefined) {
-      this.radios1.nativeElement.checked = false;
-    }
-
-    if (this.radios2 !== undefined) {
-      this.radios2.nativeElement.checked = false;
-    }
-
-    if (this.radios3 !== undefined) {
-      this.radios3.nativeElement.checked = false;
-    }
-
-    if (this.radios4 !== undefined) {
-      this.radios4.nativeElement.checked = false;
-    }
-    if (this.maxPriceInput != null) {
-      this.currentRangePrice = this.maxPrice / 2;
-    }
     this.getCompanyCoupons();
-  }
-  public categoryChanged(category: string): void {
-    this.currentCategory = category;
   }
   public applyCategoryFilter(): void{
     if (this.currentCategory !== undefined && this.currentCategory !== '') {
@@ -214,11 +174,15 @@ export class CompanyComponent implements OnInit {
       );
     }
   }
-
+  public submitFilter(): void
+  {
+    this.applyMaxPriceFilter();
+    this.applyCategoryFilter();
+  }
   public applyMaxPriceFilter(): void{
-    if (this.currentRangePrice !== undefined) {
-      console.log(this.currentRangePrice + 'currentMaxPrice');
-      this.companyService.getCompanyCouponsByMaxPrice(this.currentRangePrice).subscribe(
+    if (this.maxPriceFilter !== undefined) {
+      console.log(this.maxPriceFilter + 'currentMaxPrice');
+      this.companyService.getCompanyCouponsByMaxPrice(this.maxPriceFilter).subscribe(
         (response: Coupon[]) => {
           this.companyCoupons = response;
           // this.getRangeValue();
@@ -231,12 +195,5 @@ export class CompanyComponent implements OnInit {
     }
   }
 
-
-
-  public maxPriceChanged(): void{
-    if (this.maxPriceInput != null) {
-      this.currentRangePrice = Number(this.maxPriceInput?.value);
-    }
-  }
 }
 

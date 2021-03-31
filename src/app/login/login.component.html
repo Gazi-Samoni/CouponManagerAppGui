@@ -1,41 +1,35 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
+
+
+<div class="wrapper" style="padding-top: 5%">
+  <div id="formContent" style="border: 3px solid #56BAED">
     <!-- Login Form -->
     <form *ngIf="loginForm" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-      <H1>Login</H1>
-      <input type="text" ngModel id="email" class="fadeIn second" name="email" placeholder="email" required>
-      <input type="password" ngModel id="password" class="fadeIn third" name="password" placeholder="password" required>
-      <div class="form-group" >
-        <div class="fadeIn second form-check" >
-          <input  ngModel class="form-check-input" type="radio" name="loginType" id="exampleRadios1" value=2 required>
-          <label class="form-check-label" for="exampleRadios1">
-            Customer
-          </label>
-        </div>
-        <div class="fadeIn second form-check">
-          <input ngModel class="form-check-input" type="radio" name="loginType" id="exampleRadios2" value=1 required>
-          <label class="form-check-label" for="exampleRadios2">
-            Company
-          </label>
-        </div>
-        <div class="fadeIn second form-check disabled">
+      <H1 style="color:#56BAED">Login</H1>
+      <input type="text" ngModel id="email" name="email" placeholder="Email" required>
+      <input type="password" ngModel id="password" name="password" placeholder="Password" required>
+        <!--      Client Type      -->
+      <br><br>
+      <div class="row" style="align-content: center;margin-left: 100px">
+        <div class="form-check" >
           <input ngModel class="form-check-input" type="radio" name="loginType" id="exampleRadios3" value=0 required>
-          <label class="form-check-label" for="exampleRadios3">
-            Admin
-          </label>
+          <label class="form-check-label" for="exampleRadios3" style="margin-right: 10px;color:#56BAED">Admin</label>
+        </div>
+        <div class="form-check">
+          <input ngModel class="form-check-input" type="radio" name="loginType" id="exampleRadios2" value=1 required>
+          <label class="form-check-label" for="exampleRadios2"style="margin-right: 10px ;color:#56BAED">Company</label>
+        </div>
+        <div class="form-check disabled">
+          <input  ngModel class="form-check-input" type="radio" name="loginType" id="exampleRadios1" value=2 required>
+          <label class="form-check-label" for="exampleRadios1" style="color:#56BAED">Customer</label>
         </div>
 
       </div>
-
-      <input [disabled]="loginForm.invalid" type="submit" class="fadeIn fourth" value="Log In">
-
+      <br><br>
+      <input [disabled]="loginForm.invalid" type="submit" value="Log In" >
     </form>
-
   </div>
-</div>
-
+  <img src="https://marketplace.magento.com/media/catalog/product/e/a/easy-coupon-manager-240x240_2.png" alt="Trulli" width="100" height="100" style="margin-top: 5%">

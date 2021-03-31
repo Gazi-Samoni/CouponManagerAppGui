@@ -1,71 +1,32 @@
 <div class="container">
   <div class="row">
-    <h1>{{companyDetails?.name}}</h1>
+    <h1 style="color: red">{{companyDetails?.name}} </h1>
   </div>
   <div class="row">
+      <button class="btn btn-primary" (click)="onOpenModalCoupon(null, 'add')" type="submit" style="margin:5px;">Add Coupon</button>
 
-    <div class="col-sm-3">
-      <button class="btn btn-primary float-left" (click)="onOpenModalCoupon(null, 'add')" type="submit">Add Coupon</button>
-    </div>
-    <div class="col-sm-3">
-      <button class="btn btn-primary float-left" (click)="applyCategoryFilter()" type="submit">Filter by Category</button>
-    </div>
-    <div class="col-sm-3">
-      <button class="btn btn-primary float-left" (click)="applyMaxPriceFilter()" type="submit">Filter by max price</button>
-    </div>
-    <div class="col-sm-3">
-      <button class="btn btn-primary float-left" (click)="reset()" type="submit">Reset</button>
-    </div>
-  </div>
+    <!--Category drop-list    -->
+      <div class="form-group" style="margin:5px;">
+        <div class="col-sm-3">
+          <select id="category" name="category" [(ngModel)]="currentCategory" >
+            <option value="" selected>Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Electricity">Electricity</option>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Vacation">Vacation</option>
+          </select>
+        </div>
+      </div>
 
-
-  <div class="row">
-    <div class="form-group float-left col-sm-3">
-      <!--blank-->
-    </div>
-
-    <div class="form-group float-left col-sm-3">
       <div class="col-sm-3">
-        <div class="form-check disabled">
-          <input  #radios1 (click)="categoryChanged('Food')"  ngModel class="form-check-input" type="radio" name="category" id="radios1" value='Food'>
-          <label class="form-check-label" for="exampleRadios1">
-            Food
-          </label>
-        </div>
-        <div class="form-check disabled">
-          <input #radios2  (click)="categoryChanged('Electricity')" ngModel class="form-check-input" type="radio" name="category" id="radios2" value='Electricity'>
-          <label class="form-check-label" for="exampleRadios2">
-            Electricity
-          </label>
-        </div>
-        <div class="form-check disabled">
-          <input #radios3 (click)="categoryChanged('Restaurant')"  ngModel class="form-check-input" type="radio" name="category" id="radios3" value='Restaurant'>
-          <label class="form-check-label" for="exampleRadios3">
-            Restaurant
-          </label>
-        </div>
-        <div class="form-check disabled">
-          <input #radios4  (click)="categoryChanged('Vacation')" ngModel class="form-check-input" type="radio" name="category" id="radios4" value='Vacation'>
-          <label class="form-check-label" for="exampleRadios3">
-            Vacation
-          </label>
-        </div>
+        <input type="text" id="maxPriceInput2" [(ngModel)]="maxPriceFilter" placeholder="Enter Max Price" style="margin:5px;">
       </div>
-    </div>
-
-    <div class="form-group float-left col-sm-3">
-      <div class="col-sm">
-        <input type="range" id="maxPriceInput" (input)="maxPriceChanged()"  value="{{currentRangePrice}}" max="{{maxPrice}}" step="1">
-        <label> Max Price: {{currentRangePrice}}</label>
+      <div class="col-sm-3">
+        <button class="btn btn-primary" (click)="submitFilter()" type="submit" style="margin:5px;">Submit</button>
+        <button class="btn btn-primary" (click)="reset()" type="submit" style="margin:5px;">Reset</button>
       </div>
-    </div>
 
-
-
-  </div>
 </div>
-
-
 
 <div class="container align-bottom" id="coupon-container">
   <div class="row">
