@@ -51,4 +51,8 @@ export class AppComponent implements OnInit {
       alert(error.error.message);
     }
   }
+  public InvalidInput(error: HttpErrorResponse): void {
+    const errorStatus =  error.status;
+    alert('{Can not delete this Coupon ( might be in use)}');
+  }
 }

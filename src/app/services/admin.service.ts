@@ -37,12 +37,6 @@ export class AdminService implements ClientService{
     return this.http.get<Company[]>(`${this.adminAPIURL}/company/getAll`);
   }
 
-  public getOneCompanies(companyID: number): Observable<Company> {
-    return this.http.get<Company>(`${this.adminAPIURL}/company/get/${companyID}`);
-  }
-
-  //    -------------------- customer ------------------------------
-
   public addCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(`${this.adminAPIURL}/customer/add`, customer);
   }
@@ -59,7 +53,4 @@ export class AdminService implements ClientService{
     return this.http.get<Customer[]>(`${this.adminAPIURL}/customer/getAll`);
   }
 
-  public getOneCustomer(customerID: number): Observable<Customer> {
-    return this.http.get<Customer>(`${this.adminAPIURL}/customer/get/${customerID}`);
-  }
 }

@@ -38,12 +38,13 @@ export class CustomerService implements ClientService{
     return this.http.get<Customer>(`${this.customerAPIURL}/details`);
   }
 
+  //Added these to display all coupons for customer for purchase
   public getAllCoupons(): Observable<Array<Coupon>> {
     return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/coupon/getAll`);
   }
 
   public getAllCouponsByCategory(category: string): Observable<Array<Coupon>> {
-    return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/AllCompanies/${category}`);
+    return this.http.get<Array<Coupon>>(`${this.customerAPIURL}/coupon/getAll/category/${category}`);
   }
 
   public getAllCouponsByMaxPrice(maxPrice: number): Observable<Array<Coupon>> {

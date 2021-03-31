@@ -171,7 +171,7 @@ export class CompanyComponent implements OnInit {
           this.getCompanyCoupons();
         },
         (error: HttpErrorResponse) => {
-          this.app.handleError(error);
+          this.app.InvalidInput(error);
         }
       );
     }
