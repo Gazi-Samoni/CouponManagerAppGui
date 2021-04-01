@@ -17,8 +17,8 @@
     <!--Category drop-list    -->
     <div class="form-group" style="margin:5px;">
           <div class="col-sm-3">
-          <select id="category" name="category" [(ngModel)]="currentCategory" >
-            <option value="" selected>Select Category</option>
+          <select id="category" name="category" [(ngModel)]="currentCategory" style="margin:5px; font-size: 19px;">
+            <option value="" selected>Category</option>
             <option value="Food">Food</option>
             <option value="Electricity">Electricity</option>
             <option value="Restaurant">Restaurant</option>
@@ -28,7 +28,7 @@
     </div>
     <!--MaxPrice range    -->
     <div class="col-sm-3">
-      <input type="text" id="maxPriceInput2" [(ngModel)]="maxPriceFilter" placeholder="Enter Max Price" style="margin:5px;">
+      <input type="text" id="maxPriceInput2" [(ngModel)]="maxPriceFilter" placeholder="Enter Max Price" style="margin:10px;">
     </div>
     <div class="col-sm-3">
       <button class="btn btn-primary" (click)="submitFilter()" type="submit" style="margin:5px;">Submit</button>
@@ -44,9 +44,9 @@
     <div *ngFor="let coupon of customerCoupons" class="col-md-6 col-xl-3">
       <div class="card m-b-30">
         <div class="card-body row">
-          <!--          <div class="col-6">-->
-          <!--            <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>-->
-          <!--          </div>-->
+          <div class="col-6">
+            <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+          </div>
           <div class="col-6 card-title align-self-center mb-0">
             <h5>{{coupon?.title}}</h5>
           </div>
@@ -99,9 +99,9 @@
       <div *ngFor="let coupon of companyCoupons" class="col-md-6 col-xl-3">
         <div class="card m-b-30">
           <div class="card-body row">
-            <!--          <div class="col-6">-->
-            <!--            <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>-->
-            <!--          </div>-->
+                      <div class="col-6">
+                        <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                      </div>
             <div class="col-6 card-title align-self-center mb-0">
               <h5>{{coupon?.title}}</h5>
             </div>
