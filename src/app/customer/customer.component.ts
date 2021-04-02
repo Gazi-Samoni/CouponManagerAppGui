@@ -111,19 +111,6 @@ export class CustomerComponent implements OnInit {
       }
     );
   }
-  public onOpenModalCoupon(coupon: Coupon | null, mode: string): void {
-    const customerContainer = document.getElementById('coupon-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#purchaseCouponModal');
-    }
-
-    customerContainer?.appendChild(button);
-    button.click();
-  }
   public onPurchaseCoupon(coupon: Coupon| null): void{
     console.log(coupon);
     const isPurchasedBefore = this.customerCoupons.find(value => value.id === coupon?.id);
@@ -131,6 +118,7 @@ export class CustomerComponent implements OnInit {
       if (coupon !== null) {
         this.customerService.purchaseCoupon(coupon).subscribe(
           (response: void) => {
+            alert(coupon.title + ' purchased successfully');
             this.getAllCoupons();
             this.getCustomerCoupons();
           },

@@ -4,8 +4,8 @@
     <h1>{{customerDetails?.firstName}} {{customerDetails?.lastName}}</h1>
   </div>
 
-  <div class="btn-group btn-group-toggle mt-6" data-toggle="buttons">
-    <label (click)="onSwitchData('Companies')" class="btn btn-secondary active">
+  <div class="btn-group btn-group-toggle mt-6" data-toggle="buttons" >
+    <label style="margin-left: 15px" (click)="onSwitchData('Companies')" class="btn btn-secondary active">
       <input  type="radio" name="options" id="option1" autocomplete="off"> All Coupons
     </label>
     <label (click)="onSwitchData('My')" class="btn btn-secondary">
@@ -31,8 +31,8 @@
       <input type="text" id="maxPriceInput2" [(ngModel)]="maxPriceFilter" placeholder="Enter Max Price" style="margin:10px;">
     </div>
     <div class="col-sm-3">
-      <button class="btn btn-primary" (click)="submitFilter()" type="submit" style="margin:5px;">Submit</button>
-      <button class="btn btn-primary" (click)="reset()" type="submit" style="margin:5px;">Reset</button>
+      <button class="btn btn-primary" (click)="submitFilter()" type="submit" style="margin:5px;">Submit Filter</button>
+      <button class="btn btn-primary" (click)="reset()" type="submit" style="margin:5px;">Reset Filter</button>
     </div>
 
   </div>
@@ -45,7 +45,7 @@
       <div class="card m-b-30">
         <div class="card-body row">
           <div class="col-6">
-            <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+            <a><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
           </div>
           <div class="col-6 card-title align-self-center mb-0">
             <h5>{{coupon?.title}}</h5>
@@ -100,29 +100,28 @@
         <div class="card m-b-30">
           <div class="card-body row">
                       <div class="col-6">
-                        <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                        <a><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
                       </div>
             <div class="col-6 card-title align-self-center mb-0">
               <h5>{{coupon?.title}}</h5>
             </div>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Description: {{coupon?.description}}</li>
-            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Start Date: {{coupon?.startDate}}</li>
-            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>End Date: {{coupon?.endDate}}</li>
-            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Amount: {{coupon?.amount}}</li>
-            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Price: {{coupon?.price}}</li>
-            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Category: {{coupon?.category}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Description: </strong>{{coupon?.description}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Start Date: </strong>{{coupon?.startDate}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>End Date: </strong>{{coupon?.endDate}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Amount: </strong>{{coupon?.amount}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Price: </strong>{{coupon?.price}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i><strong>Category: </strong>{{coupon?.category}}</li>
           </ul>
           <div class="card-body">
             <div class="float-right btn-group btn-group-sm">
               <button (click)="onPurchaseCoupon(coupon)" type="button" class="btn btn-primary">Buy</button>
-              <!--                <a  class="btn btn-primary" data-placement="top" data-original-title="Buy">Buy</a>-->
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>\
+</div>
 

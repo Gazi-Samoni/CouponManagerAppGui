@@ -23,8 +23,8 @@
         <input type="text" id="maxPriceInput2" [(ngModel)]="maxPriceFilter" placeholder="Enter Max Price" style="margin:10px;">
       </div>
       <div class="col-sm-3">
-        <button class="btn btn-primary" (click)="submitFilter()" type="submit" style="margin:5px;">Submit</button>
-        <button class="btn btn-primary" (click)="reset()" type="submit" style="margin:5px;">Reset</button>
+        <button class="btn btn-primary" (click)="submitFilter()" type="submit" style="margin:5px;">Submit Filter</button>
+        <button class="btn btn-primary" (click)="reset()" type="submit" style="margin:5px;">Reset Filter</button>
       </div>
 
   </div>
@@ -35,7 +35,7 @@
       <div class="card m-b-30">
         <div class="card-body row">
                     <div class="col-6">
-                      <a href=""><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                      <a><img src="{{coupon?.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
                     </div>
           <div class="col-6 card-title align-self-center mb-0">
             <h5>{{coupon?.title}}</h5>

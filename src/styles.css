@@ -14,7 +14,7 @@ a {
 }
 
 .card {
-  border: none;
+  border: 3px solid #56BAED;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
   margin-bottom: 30px;
@@ -28,10 +28,15 @@ h1,
 h2,
 h3,
 h4,
-h5,
 h6 {
-  margin: 0 0 10px;
+  margin: 0 30px 10px;
   font-weight: 600;
+  color:#56BAED;
+}
+h5 {
+  margin: 20px 0 0;
+  font-weight: 500;
+  color:#56BAED;
 }
 
 .social-links li a {
@@ -52,4 +57,7 @@ a {
 }
 i {
   color: white;
+
 }
+
+
